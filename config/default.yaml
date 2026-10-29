@@ -1,0 +1,41 @@
+# ============================================================================
+# Yangtze River Basin Runoff Reconstruction - Default Configuration
+# ============================================================================
+
+# Paths relative to the project root
+paths:
+  mada_nc: "data/mada/madaV2.nc"
+  mada_grid_points: "data/mada/madav2_2724_grid_points.csv" #points with values in the MADA netCDF file
+  docu_stations_meta: "data/docu/docu_stations_meta.csv"
+  docu_value: "data/docu/docu_stations_value_960-2000_pre.csv"
+  hydro_stations: "data/runoff/hydrostation_meta.xlsx"
+  runoff_dir: "data/runoff"
+  output_dir: "results"
+  climate_file: "data/climate/climate.xlsx"
+  base_shp: "data/shp/province.shp"
+
+# Map extent (lon/lat bounds for the proxy distribution map)
+map_extent:
+  lon_min: 104
+  lon_max: 118
+  lat_min: 27
+  lat_max: 37
+
+# Reconstruction parameters
+reconstruction:
+  start_year: 960
+  end_year: 2000
+  sig_level: 0.05 # Significance level for proxy screening
+  corr_thresh: 0.9 # Collinearity threshold
+  cv_mode: contiguous # Cross-validation mode: contiguous | random
+  basin_buffer: 0.5 # buffer distance (degrees)
+  missing_thresh: 0.05 # Calibration-period missing-rate threshold
+  max_candidates: 10 # Maximum number of candidate proxies
+  k_folds: 3 # Number of cross-validation folds
+
+# Run tasks
+tasks:
+  stations:
+    - name: "Hanjiang"
+      basin_shp: "data/shp/Hanjiang.shp"
+      runoff: "data/runoff/hydrostation_runoff.xlsx"
